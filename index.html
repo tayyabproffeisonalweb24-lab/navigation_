@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VEXORA | Premium Technology Navigation</title>
+
+  <style>
+    /* ===== PROFESSIONAL TECHNOLOGY COLOR SYSTEM ===== */
+    :root {
+      --bg: #070b14;
+      --surface: #0d1423;
+      --surface-light: #121e32;
+      --primary: #4f8cff;
+      --cyan: #48e5ff;
+      --text: #f4f7ff;
+      --muted: #91a0b8;
+      --border: rgba(148, 177, 220, 0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== NAVIGATION BAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      background: rgba(7, 11, 20, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1240px;
+      min-height: 82px;
+      padding: 0 28px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    /* ===== BRAND LOGO ===== */
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--primary), #3444c8);
+      box-shadow: 0 0 28px rgba(79, 140, 255, 0.22);
+      color: white;
+      font-size: 23px;
+      font-weight: 900;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-icon {
+      transform: rotate(-8deg) scale(1.06);
+    }
+
+    .logo-name {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .logo-name span {
+      color: var(--cyan);
+    }
+
+    /* ===== NAVIGATION LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      position: relative;
+      display: block;
+      padding: 12px 13px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      bottom: 4px;
+      height: 2px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    /* ===== CTA BUTTON ===== */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #46e7a5;
+      box-shadow: 0 0 10px rgba(70, 231, 165, 0.65);
+    }
+
+    .contact-btn {
+      padding: 12px 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 9px;
+      color: #fff;
+      background: linear-gradient(135deg, #477fff, #3861e8);
+      border: 1px solid rgba(125, 169, 255, 0.4);
+      box-shadow: 0 6px 22px rgba(54, 100, 235, 0.19);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(54, 100, 235, 0.36);
+    }
+
+    .contact-btn span {
+      color: var(--cyan);
+      font-size: 17px;
+    }
+
+    /* ===== MOBILE MENU BUTTON ===== */
+    .menu-toggle {
+      display: none;
+      width: 43px;
+      height: 43px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-size: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== DEMO PAGE CONTENT ===== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 570px;
+      padding: 110px 24px 100px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 400px;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(
+        ellipse,
+        rgba(42, 103, 230, 0.18),
+        transparent 70%
+      );
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      animation: reveal 0.8s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 15px;
+      margin-bottom: 27px;
+      border: 1px solid rgba(72, 229, 255, 0.22);
+      border-radius: 100px;
+      background: rgba(72, 229, 255, 0.05);
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6.5vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -3px;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #70a6ff, #48e5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: 25px auto 32px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .secondary-btn {
+      padding: 13px 20px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .secondary-btn:hover {
+      background: var(--surface-light);
+      border-color: rgba(72, 229, 255, 0.4);
+    }
+
+    .features {
+      max-width: 1040px;
+      padding: 0 24px 90px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      padding: 28px 24px;
+      background: linear-gradient(
+        145deg,
+        rgba(18, 30, 50, 0.9),
+        rgba(10, 16, 29, 0.9)
+      );
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(72, 229, 255, 0.35);
+    }
+
+    .feature-card .number {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .feature-card h2 {
+      margin: 17px 0 10px;
+      font-size: 18px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== RESPONSIVE TABLET AND MOBILE ===== */
+    @media (max-width: 1050px) {
+      .nav-container {
+        gap: 16px;
+        padding: 0 20px;
+      }
+
+      .nav-links a {
+        padding: 12px 9px;
+        font-size: 12px;
+      }
+
+      .nav-links a::after {
+        left: 9px;
+        right: 9px;
+      }
+
+      .status {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-container {
+        min-height: 72px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .contact-btn {
+        padding: 11px 13px;
+        font-size: 11px;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        right: 0;
+        padding: 14px 20px 22px;
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 5px;
+        background: rgba(7, 11, 20, 0.98);
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-links a {
+        padding: 15px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(79, 140, 255, 0.09);
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .hero {
+        min-height: 500px;
+        padding: 85px 22px 75px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-container {
+        padding: 0 13px;
+        gap: 9px;
+      }
+
+      .logo {
+        gap: 8px;
+      }
+
+      .logo-icon {
+        width: 37px;
+        height: 37px;
+        font-size: 20px;
+      }
+
+      .logo-name {
+        font-size: 17px;
+        letter-spacing: 1px;
+      }
+
+      .contact-btn {
+        padding: 10px;
+      }
+
+      .menu-toggle {
+        width: 38px;
+        height: 38px;
+      }
+
+      .eyebrow {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+    }
+
+    /* Respect reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="navbar">
+    <nav class="nav-container" aria-label="Main navigation">
+
+      <a href="#home" class="logo" aria-label="Vexora home">
+       
+        <span class="logo-name">NAVIGATION<span>.</span></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="status">
+          <span class="status-dot"></span>
+          Available for projects
+        </div>
+
+        <a href="#contact" class="contact-btn">
+          Let's Talk <span>↗</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="navLinks"
+          aria-expanded="false"
+        >
+          <span id="menuIcon" aria-hidden="true">☰</span>
+        </button>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- ===== DEMO HERO SECTION ===== -->
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span>✦</span> Next-Generation Digital Experiences
+        </div>
+
+        <h1>
+          Design Beyond<br>
+          <span class="gradient-text">The Ordinary.</span>
+        </h1>
+
+        <p>
+          We combine innovative technology, premium design and
+          intelligent digital solutions to build extraordinary
+          online experiences for ambitious brands.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="contact-btn">
+            Explore Our Work <span>↗</span>
+          </a>
+          <a href="#about" class="secondary-btn">
+            Discover Our Vision →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEMO CONTENT FOR NAVIGATION LINKS ===== -->
+    <section class="features" id="about">
+      <article class="feature-card">
+        <span class="number">01 / OUR VISION</span>
+        <h2>Purposeful Design</h2>
+        <p>
+          Clean layouts, refined typography and a consistent
+          visual identity built around your brand.
+        </p>
+      </article>
+
+      <article class="feature-card" id="services">
+        <span class="number">02 / OUR SERVICES</span>
+        <h2>Modern Technology</h2>
+        <p>
+          Responsive websites, modern interfaces and thoughtful
+          interactions for every screen.
+        </p>
+      </article>
+
+      <article class="feature-card" id="projects">
+        <span class="number">03 / OUR PROJECTS</span>
+        <h2>Premium Experiences</h2>
+        <p>
+          Memorable digital experiences designed to engage
+          visitors and support business goals.
+        </p>
+      </article>
+    </section>
+
+    <section id="contact" style="text-align:center;padding:20px 20px 80px">
+      <h2 style="font-size:28px;margin-bottom:12px">
+        Let's Build Something Exceptional.
+      </h2>
+      <p style="color:#91a0b8">
+        Your next digital project starts here.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    // ===== MOBILE NAVIGATION =====
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const menuIcon = document.getElementById("menuIcon");
+    const links = navLinks.querySelectorAll("a");
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation menu");
+      menuIcon.textContent = "☰";
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
+
+      menuIcon.textContent = isOpen ? "✕" : "☰";
+    });
+
+    // Close mobile menu after choosing a section.
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMenu();
+
+        // Highlight the selected navigation item.
+        links.forEach((item) => item.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Close menu with Escape key.
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+
+    // Close mobile menu when resizing to desktop.
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        closeMenu();
+      }
+    });
+  </script>
+
+</body>
+</html>
